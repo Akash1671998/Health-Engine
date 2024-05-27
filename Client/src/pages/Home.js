@@ -5,6 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
+import AuthenticationService from "./AuthenticationServices";
 
 const MainBox = styled(Box)({
   height: "100vh",
@@ -22,10 +24,13 @@ const Header = styled(AppBar)({
   // backgroundColor:'#00bfa5',
 });
 
+const logout = () => {
+  AuthenticationService.logout();
+};
 export default function Home() {
   return (
     <MainBox sx={{ flexGrow: 1 }}>
-      {/* {loginuser ? ( */}
+      <Button onClick={() => logout()}>LogOut</Button>
       <>
         <ChatHeader position="static">
           <Toolbar variant="dense">

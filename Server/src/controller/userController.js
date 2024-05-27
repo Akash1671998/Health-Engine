@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const UserModel = require("../model/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // for new user
 const registerController = async (request, response) => {
@@ -32,10 +33,17 @@ const registerController = async (request, response) => {
     console.log("error while the call register api ", error);
   }
 };
-const loginController = async (request,response) => {
+const loginController = async (request, response) => {
   try {
     const usename = request.body.username;
     const password = request.body.password;
+    console.log(
+      "usernameeeeeeeeeeeeee",
+      usename,
+      "+",
+      "passwordpassword",
+      password
+    );
     const userData = await UserModel.findOne({ username: usename });
 
     if (!userData) {
@@ -53,7 +61,25 @@ const loginController = async (request,response) => {
         message: "username Or Password invalid",
       });
     }
-  } catch (error) {}
+
+    const token = jwt.sign({ id: userData._id }, process.env.SECRET_KEY, {
+      expiresIn: "1d",
+    });
+    const data = {
+      _id: userData._id,
+      username: userData.username,
+      token:token,
+      createdOn:userData.createdOn
+    };
+    response.status(200).send({
+      status: "ok",
+      message: "Authenticated",
+      messageDetail: "User has been successfully authenticated",
+      data: data,
+    });
+  } catch (error) {
+    console.log("Error when the call loginController", error);
+  }
 };
 
 module.exports = { registerController, loginController };

@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import AuthenticationService from "./AuthenticationServices";
 
 const defaultTheme = createTheme();
 
@@ -21,53 +22,48 @@ const loginInitialValues = {
   password: "",
 };
 
+// Base URL
+let BASE_URL = "http://localhost:9191/api/v1/user";
+
 export default function SignIn() {
-
-  const [formData, setFormData] = useState(loginInitialValues);
-
   const Navigate = useNavigate();
-  const handleSignup = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  let BASE_URL = "http://localhost:9191/api/v1/user";
-  const login = () => {
-    axios
-      .post(`${BASE_URL}/login`, formData)
-      .then((response) => {
-        console.log("New User Register Successfully", response);
-        if (response.status == 200) {
-          Navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.log("Error While the call register user", error);
-      });
-  };
+  const [formData, setFormData] = useState(loginInitialValues);
 
   const goToRegister = () => {
     Navigate("/register");
   };
+
+  const handleSignup = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const login = async () => {
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, formData);
+      debugger;
+      AuthenticationService.storeAuthenticationDetails(
+        response.data.data.token,
+        response.data.data.username
+      );
+      debugger;
+      if (response.status == 200) {
+        Navigate("/");
+      }
+    } catch (error) {
+      console.error(
+        "Error during login:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+      <Grid
+        container
+        component="main"
+        sx={{ height: "100vh", justifyContent: "center" }}
+      >
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -108,7 +104,6 @@ export default function SignIn() {
                 onChange={(e) => handleSignup(e)}
               />
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 onClick={() => login()}
@@ -116,17 +111,11 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  {/* <Link href="/register" variant="body2">
-                   New User
-                  </Link> */}
-                </Grid>
-                <Grid item>
-                  <Link onClick={() => goToRegister()} variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
+
+              <Grid item>
+                <Link onClick={() => goToRegister()} variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Grid>
             </Box>
           </Box>
