@@ -6,7 +6,6 @@
 
 const AuthenticationService = {
   storeAuthenticationDetails: function (token, userName) {
-    debugger
     window.sessionStorage.setItem(
       `${window.location.hostname}-vishw-Grow-Token`,
       token
@@ -19,29 +18,29 @@ const AuthenticationService = {
 
   getAuthenticationToken: function () {
     return window.sessionStorage.getItem(
-      `${window.location.hostname}-coral-X-Token`
+      `${window.location.hostname}-vishw-Grow-Token`
     );
   },
 
   setUserName: function (userName) {
     return window.sessionStorage.setItem(
-      `${window.location.hostname}-coral-X-UserName`,
+      `${window.location.hostname}-vishw-Grow-UserName`,
       userName
     );
   },
   getUserName: function () {
     return window.sessionStorage.getItem(
-      `${window.location.hostname}-coral-X-UserName`
+      `${window.location.hostname}-vishw-Grow-UserName`
     );
   },
 
   logout: function () {
     window.sessionStorage.setItem(
-      `${window.location.hostname}-coral-X-User`,
+      `${window.location.hostname}-vishw-Grow-User`,
       ""
     );
     window.sessionStorage.setItem(
-      `${window.location.hostname}-coral-X-Token`,
+      `${window.location.hostname}-vishw-Grow-Token`,
       ""
     );
   },

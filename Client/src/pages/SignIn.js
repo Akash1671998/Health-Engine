@@ -1,7 +1,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
@@ -14,6 +13,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import AuthenticationService from "./AuthenticationServices";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/feature/alertSlice";
 
 const defaultTheme = createTheme();
 
@@ -27,6 +28,7 @@ let BASE_URL = "http://localhost:9191/api/v1/user";
 
 export default function SignIn() {
   const Navigate = useNavigate();
+  const disptch = useDispatch();
   const [formData, setFormData] = useState(loginInitialValues);
 
   const goToRegister = () => {
@@ -39,17 +41,18 @@ export default function SignIn() {
 
   const login = async () => {
     try {
+      disptch(showLoading());
       const response = await axios.post(`${BASE_URL}/login`, formData);
-      debugger;
+      disptch(hideLoading());
       AuthenticationService.storeAuthenticationDetails(
         response.data.data.token,
         response.data.data.username
       );
-      debugger;
       if (response.status == 200) {
         Navigate("/");
       }
     } catch (error) {
+      disptch(hideLoading());
       console.error(
         "Error during login:",
         error.response ? error.response.data : error.message

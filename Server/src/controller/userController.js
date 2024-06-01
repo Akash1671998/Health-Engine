@@ -63,13 +63,13 @@ const loginController = async (request, response) => {
     }
 
     const token = jwt.sign({ id: userData._id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
+      expiresIn: process.env.TOKEN_TIME,
     });
     const data = {
       _id: userData._id,
       username: userData.username,
-      token:token,
-      createdOn:userData.createdOn
+      token: token,
+      createdOn: userData.createdOn,
     };
     response.status(200).send({
       status: "ok",
@@ -82,4 +82,31 @@ const loginController = async (request, response) => {
   }
 };
 
-module.exports = { registerController, loginController };
+const authController = async (request, response) => {
+  try {
+    const user = await UserModel.findOne({ id: request.body._id });
+
+    if (!user) {
+      return res.status(401).send({
+        status: "failed",
+        message: "user not found",
+      });
+    } else {
+      response.status(200).send({
+        status: "ok",
+        message: "user getting successfully",
+        data: [{
+          name: user.username,
+        }],
+      });
+    }
+  } catch (error) {
+    console.log("Error While the Call authController", error);
+    response.status(500).send({
+      status: "faild",
+      message: "auth error",
+    });
+  }
+};
+
+module.exports = { registerController, loginController, authController };

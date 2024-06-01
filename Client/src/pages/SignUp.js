@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/feature/alertSlice";
 
 const loginInitialValues = {
   username: "",
@@ -20,6 +22,7 @@ const loginInitialValues = {
 let BASE_URL = "http://localhost:9191/api/v1/user";
 
 export default function SignUp() {
+  const disptch = useDispatch();
   const [formData, setFormData] = useState(loginInitialValues);
 
   let navigate =useNavigate();
@@ -29,9 +32,11 @@ export default function SignUp() {
   };
 
   const register = () => {
+    disptch(showLoading());
     axios
       .post(`${BASE_URL}/register`, formData)
       .then((response) => {
+        disptch(showLoading());
         console.log("New User Register Successfully", response);
         if(response.status == 200){
           navigate("/login");

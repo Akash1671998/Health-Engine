@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import AuthenticationService from "./AuthenticationServices";
+import axios from "axios";
 
 const MainBox = styled(Box)({
   height: "100vh",
@@ -24,10 +25,28 @@ const Header = styled(AppBar)({
   // backgroundColor:'#00bfa5',
 });
 
-const logout = () => {
-  AuthenticationService.logout();
-};
+let BASE_URL = "http://localhost:9191/api/v1/user/getUserData";
 export default function Home() {
+  const logout = () => {
+    AuthenticationService.logout();
+  };
+
+  const getUserData = () => {
+    let token = AuthenticationService.getAuthenticationToken();
+    axios.post(
+      `${BASE_URL}`,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
   return (
     <MainBox sx={{ flexGrow: 1 }}>
       <Button onClick={() => logout()}>LogOut</Button>
