@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,6 +8,8 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import AuthenticationService from "./AuthenticationServices";
 import axios from "axios";
+import Navbar from "../component/Navbar";
+import SideBar from "../component/SideBar/SideBar";
 
 const MainBox = styled(Box)({
   height: "100vh",
@@ -27,8 +29,14 @@ const Header = styled(AppBar)({
 
 let BASE_URL = "http://localhost:9191/api/v1/user/getUserData";
 export default function Home() {
-  const logout = () => {
-    AuthenticationService.logout();
+  const [openSideNav,setOpenSideNav]=useState(false)
+
+  const handleOpenSideBar = () => {
+    setOpenSideNav(!openSideNav);
+  };
+
+  const handleCloseSideBar = () => {
+    setOpenSideNav(false);
   };
 
   const getUserData = () => {
@@ -48,36 +56,21 @@ export default function Home() {
     getUserData();
   }, []);
   return (
-    <MainBox sx={{ flexGrow: 1 }}>
-      <Button onClick={() => logout()}>LogOut</Button>
-      <>
-        <ChatHeader position="static">
-          <Toolbar variant="dense">
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            ></IconButton>
-          </Toolbar>
-        </ChatHeader>
-        {/* <Chatting /> */}
-      </>
-      <>
-        <Header position="static">
-          <Toolbar variant="dense">
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            ></IconButton>
-            <Typography variant="h6" color="inherit" component="div">
-              {/* <UserLogin /> */}
-            </Typography>
-          </Toolbar>
-        </Header>
-      </>
-    </MainBox>
+    <div>
+      <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 999 }}>
+        <Navbar handleOpenSideBar={handleOpenSideBar} openSideNav={openSideNav} />
+      </div>
+      <Box>
+        <SideBar openSideNav={openSideNav}/>
+      </Box>
+      {/* <div style={{ marginTop: "60px" }}> */}
+      {/* Adjust margin-top to accommodate header height */}
+      {/* <SideBar setOpenSideNav={setOpenSideNav} /> */}
+      {/* <Emails openSideNav={openSideNav}/> */}
+      {/* <Suspense fallback={<SuspenseLoader />}>
+        <Outlet />
+      </Suspense> */}
+      {/* </div> */}
+    </div>
   );
 }

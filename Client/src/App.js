@@ -9,7 +9,6 @@ import PublicRoute from "./component/PublicRoute";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
-  console.log("??????????????????????", loading);
   return (
     <div className="App">
       <BrowserRouter>

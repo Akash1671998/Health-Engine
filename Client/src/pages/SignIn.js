@@ -17,7 +17,6 @@ import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/feature/alertSlice";
 
 const defaultTheme = createTheme();
-
 const loginInitialValues = {
   username: "",
   password: "",
@@ -30,6 +29,14 @@ export default function SignIn() {
   const Navigate = useNavigate();
   const disptch = useDispatch();
   const [formData, setFormData] = useState(loginInitialValues);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+    status: "",
+    vertical: "bottom",
+    horizontal: "right",
+  });
 
   const goToRegister = () => {
     Navigate("/register");
@@ -48,6 +55,7 @@ export default function SignIn() {
         response.data.data.token,
         response.data.data.username
       );
+
       if (response.status == 200) {
         Navigate("/");
       }
