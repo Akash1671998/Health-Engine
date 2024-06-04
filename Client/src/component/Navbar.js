@@ -3,17 +3,12 @@ import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "@emotion/styled";
-// import Images from "../Images/gmail.png";
 import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import TuneIcon from "@mui/icons-material/Tune";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import AuthenticationService from "../pages/AuthenticationServices";
 
 // Style For AppBar like Header
 const StyleAppBar = styled(AppBar)({
@@ -57,8 +52,7 @@ const OperationalButton = styled(Box)({
 });
 
 function Navbar({ handleOpenSideBar, openSideNav }) {
-  const { user } = useSelector((state) => state.user);
-  console.log("MMMMMMMMMMMMMMMMMMMM", user);
+  let UserName = AuthenticationService.getUserName();
   return (
     <>
       <StyleAppBar position="static">
@@ -69,8 +63,8 @@ function Navbar({ handleOpenSideBar, openSideNav }) {
             variant="outlined"
           />
           {/* <img src={Images} alt="logo" /> */}
-          <Typography style={{display:'flex',justifyContent:'end'}}>
-            <Link to="/profile">{user?.name}</Link>
+          <Typography style={{ display: "flex", justifyContent: "end" }}>
+            <Link to="/profile">{UserName}</Link>
           </Typography>
           <SearchBox>
             <SearchIcon color="action" />

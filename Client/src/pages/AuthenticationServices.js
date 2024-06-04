@@ -1,9 +1,3 @@
-// import axios from "axios";
-// import variables from "globals/variables";
-// import SIPPhoneService from "application/components/SIPPhone/SIPPhoneService";
-// import loggerFactory from "globals/logger/logger-factory";
-// const componentName = "AuthenticationService";
-
 const AuthenticationService = {
   storeAuthenticationDetails: function (token, userName) {
     window.sessionStorage.setItem(

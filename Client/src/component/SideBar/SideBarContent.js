@@ -5,6 +5,8 @@ import styled from "@emotion/styled";
 import SideBarData from "../SideBarConfig/SideBarData";
 
 import { NavLink, useLocation, useParams } from "react-router-dom";
+import AuthenticationService from "../../pages/AuthenticationServices";
+import AdminMenu from "../SideBarConfig/adminMenu";
 
 const MailContainer = styled(Box)({
   padding: "8px",
@@ -29,14 +31,17 @@ function SideBarContent() {
   const { type } = useParams();
   const location = useLocation();
 
+  const MenuName =
+    AuthenticationService.getUserName === "admin" ? AdminMenu : SideBarData;
+
   return (
     <>
       <MailContainer>
         <Box></Box>
 
         <List>
-          {SideBarData &&
-            SideBarData.map((data, index) => {
+          {MenuName &&
+            MenuName.map((data, index) => {
               const isActive = location.pathname === data.path;
               return (
                 <NavLink key={index} to={`${data.path}/${data.name}`}>

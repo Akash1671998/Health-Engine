@@ -1,12 +1,7 @@
 import { Drawer } from "@mui/material";
 import SideBarContent from "./SideBarContent";
-// import { useMailContexController } from "../context";
-import { useState } from "react";
 
 function SideBar({ openSideNav }) {
-  //   const [controller, dispatch] = useMailContexController();
-  //   const {openSideNav} = controller;
-  //   const [openSideNav,setOpenSideNav]=useState(true)
   return (
     <>
       <Drawer

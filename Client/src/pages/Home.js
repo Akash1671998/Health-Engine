@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import styled from "@emotion/styled";
 import AuthenticationService from "./AuthenticationServices";
 import axios from "axios";
 import Navbar from "../component/Navbar";
@@ -10,38 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/feature/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const MainBox = styled(Box)({
-  height: "100vh",
-  backdropFilter: "#DCDCDC",
-});
-
-const ChatHeader = styled(AppBar)({
-  height: "120px",
-  boxShadow: "none",
-  backgroundColor: "#1976d2",
-});
-const Header = styled(AppBar)({
-  height: "220px",
-  boxShadow: "none",
-  // backgroundColor:'#00bfa5',
-});
-
 let BASE_URL = "http://localhost:9191/api/v1/user/getUserData";
 export default function Home() {
   const [openSideNav, setOpenSideNav] = useState(true);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  console.log("MMMMMMMMMMMMMMMMMMMM", user);
   let navigate = useNavigate();
-
   const handleOpenSideBar = () => {
     setOpenSideNav(!openSideNav);
   };
-
-  const handleCloseSideBar = () => {
-    setOpenSideNav(false);
-  };
-
   const getUserData = () => {
     const token = AuthenticationService.getAuthenticationToken();
     return axios

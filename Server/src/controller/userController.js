@@ -18,11 +18,10 @@ const registerController = async (request, response) => {
     }
 
     const password = request.body.password;
-    console.log("passwordpassword", password);
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
     request.body.password = hashPassword;
-    const newUser = new UserModel(request.body);
+    const newUser = new UserModel({ ...request.body, password: hashPassword });
     const data = await newUser.save();
     response.status(200).send({
       status: "ok",
@@ -84,10 +83,12 @@ const loginController = async (request, response) => {
 
 const authController = async (request, response) => {
   try {
-    const user = await UserModel.findOne({ id: request.body._id });
+    const { _id } = request.body; 
+    console.log("///////////////////", _id); 
 
+    const user = await UserModel.findOne({ _id });
     if (!user) {
-      return res.status(401).send({
+      return response.status(401).send({
         status: "failed",
         message: "user not found",
       });

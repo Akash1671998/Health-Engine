@@ -26,7 +26,22 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isDoctor: {
+    type: Boolean,
+    default: false,
+  },
+  notification: {
+    type: Array,
+    default: [],
+  },
+  seenNotification: {
+    type: Array,
+    default: [],
+  },
 });
 
 const UserModel = mongoose.model("users", userSchema);

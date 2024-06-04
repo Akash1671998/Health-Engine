@@ -36,7 +36,7 @@ export default function SignUp() {
     axios
       .post(`${BASE_URL}/register`, formData)
       .then((response) => {
-        disptch(showLoading());
+        disptch(hideLoading());
         console.log("New User Register Successfully", response);
         if(response.status == 200){
           navigate("/login");
