@@ -12,6 +12,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 
 // Style For AppBar like Header
 const StyleAppBar = styled(AppBar)({
@@ -55,6 +57,8 @@ const OperationalButton = styled(Box)({
 });
 
 function Navbar({ handleOpenSideBar, openSideNav }) {
+  const { user } = useSelector((state) => state.user);
+  console.log("MMMMMMMMMMMMMMMMMMMM", user);
   return (
     <>
       <StyleAppBar position="static">
@@ -65,7 +69,9 @@ function Navbar({ handleOpenSideBar, openSideNav }) {
             variant="outlined"
           />
           {/* <img src={Images} alt="logo" /> */}
-          <Typography>Health Engine</Typography>
+          <Typography style={{display:'flex',justifyContent:'end'}}>
+            <Link to="/profile">{user?.name}</Link>
+          </Typography>
           <SearchBox>
             <SearchIcon color="action" />
             <InputBase

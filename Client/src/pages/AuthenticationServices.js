@@ -34,6 +34,17 @@ const AuthenticationService = {
     );
   },
 
+  ClearSision: function () {
+    window.sessionStorage.setItem(
+      `${window.location.hostname}-vishw-Grow-User`,
+      ""
+    );
+    window.sessionStorage.setItem(
+      `${window.location.hostname}-vishw-Grow-Token`,
+      ""
+    );
+  },
+
   logout: function () {
     window.sessionStorage.setItem(
       `${window.location.hostname}-vishw-Grow-User`,

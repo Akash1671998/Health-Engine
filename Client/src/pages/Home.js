@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
-import Typography from "@mui/material/Typography";
-import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import styled from "@emotion/styled";
-import { Button } from "@mui/material";
 import AuthenticationService from "./AuthenticationServices";
 import axios from "axios";
 import Navbar from "../component/Navbar";
 import SideBar from "../component/SideBar/SideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/feature/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const MainBox = styled(Box)({
   height: "100vh",
@@ -29,7 +28,11 @@ const Header = styled(AppBar)({
 
 let BASE_URL = "http://localhost:9191/api/v1/user/getUserData";
 export default function Home() {
-  const [openSideNav,setOpenSideNav]=useState(false)
+  const [openSideNav, setOpenSideNav] = useState(true);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  console.log("MMMMMMMMMMMMMMMMMMMM", user);
+  let navigate = useNavigate();
 
   const handleOpenSideBar = () => {
     setOpenSideNav(!openSideNav);
@@ -40,28 +43,42 @@ export default function Home() {
   };
 
   const getUserData = () => {
-    let token = AuthenticationService.getAuthenticationToken();
-    axios.post(
-      `${BASE_URL}`,
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
+    const token = AuthenticationService.getAuthenticationToken();
+    return axios
+      .post(
+        `${BASE_URL}`,
+        {},
+        { headers: { Authorization: "Bearer " + token } }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(setUser(response.data.data));
+        } else {
+          navigate("/login");
+          AuthenticationService.ClearSision();
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        AuthenticationService.ClearSision();
+      });
   };
 
   useEffect(() => {
-    getUserData();
-  }, []);
+    if (!user) {
+      getUserData();
+    }
+  }, [user, getUserData]);
   return (
     <div>
       <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 999 }}>
-        <Navbar handleOpenSideBar={handleOpenSideBar} openSideNav={openSideNav} />
+        <Navbar
+          handleOpenSideBar={handleOpenSideBar}
+          openSideNav={openSideNav}
+        />
       </div>
       <Box>
-        <SideBar openSideNav={openSideNav}/>
+        <SideBar openSideNav={openSideNav} />
       </Box>
       {/* <div style={{ marginTop: "60px" }}> */}
       {/* Adjust margin-top to accommodate header height */}

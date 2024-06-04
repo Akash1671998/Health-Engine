@@ -95,9 +95,9 @@ const authController = async (request, response) => {
       response.status(200).send({
         status: "ok",
         message: "user getting successfully",
-        data: [{
+        data: {
           name: user.username,
-        }],
+        },
       });
     }
   } catch (error) {
