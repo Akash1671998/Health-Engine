@@ -30,12 +30,10 @@ export default function Home() {
           dispatch(setUser(response.data.data));
         } else {
           navigate("/login");
-          AuthenticationService.ClearSision();
         }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        AuthenticationService.ClearSision();
       });
   };
 

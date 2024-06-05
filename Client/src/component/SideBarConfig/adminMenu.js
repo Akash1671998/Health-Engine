@@ -15,20 +15,20 @@ let AdminMenu = [
     name: "Doctor",
     path: "/doctor",
   },
-  {
-    icon: PeopleIcon,
-    name: "Users",
-    path: "/users",
-  },
-  {
-    icon: AccountCircleIcon,
-    name: "Profile",
-    path: "/profile",
-  },
-  {
-    icon: LogoutIcon,
-    name: "Logout",
-    path: "/logout",
-  },
+//   {
+//     icon: PeopleIcon,
+//     name: "Users",
+//     path: "/users",
+//   },
+//   {
+//     icon: AccountCircleIcon,
+//     name: "Profile",
+//     path: "/profile",
+//   },
+//   {
+//     icon: LogoutIcon,
+//     name: "Logout",
+//     path: "/logout",
+//   },
 ];
 export default AdminMenu;

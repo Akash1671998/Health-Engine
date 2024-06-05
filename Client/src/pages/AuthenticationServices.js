@@ -9,7 +9,7 @@ const AuthenticationService = {
       userName
     );
   },
-
+  
   getAuthenticationToken: function () {
     return window.sessionStorage.getItem(
       `${window.location.hostname}-vishw-Grow-Token`
@@ -27,18 +27,6 @@ const AuthenticationService = {
       `${window.location.hostname}-vishw-Grow-UserName`
     );
   },
-
-  ClearSision: function () {
-    window.sessionStorage.setItem(
-      `${window.location.hostname}-vishw-Grow-User`,
-      ""
-    );
-    window.sessionStorage.setItem(
-      `${window.location.hostname}-vishw-Grow-Token`,
-      ""
-    );
-  },
-
   logout: function () {
     window.sessionStorage.setItem(
       `${window.location.hostname}-vishw-Grow-User`,

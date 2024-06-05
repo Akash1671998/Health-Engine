@@ -50,12 +50,11 @@ export default function SignIn() {
     try {
       disptch(showLoading());
       const response = await axios.post(`${BASE_URL}/login`, formData);
-      disptch(hideLoading());
       AuthenticationService.storeAuthenticationDetails(
         response.data.data.token,
         response.data.data.username
       );
-
+      disptch(hideLoading());
       if (response.status == 200) {
         Navigate("/");
       }

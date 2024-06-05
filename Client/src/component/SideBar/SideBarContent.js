@@ -1,12 +1,13 @@
-import { Box, ListItem, List } from "@mui/material";
+import { Box, ListItem, List, Button, Link, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 import styled from "@emotion/styled";
 import SideBarData from "../SideBarConfig/SideBarData";
 
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import AuthenticationService from "../../pages/AuthenticationServices";
 import AdminMenu from "../SideBarConfig/adminMenu";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const MailContainer = styled(Box)({
   padding: "8px",
@@ -30,15 +31,19 @@ function SideBarContent() {
   const [openDialog, setOpenDialog] = useState(false);
   const { type } = useParams();
   const location = useLocation();
+  let navigate = useNavigate();
+
+  const Logout = () => {
+    sessionStorage.clear();
+    navigate("/login");
+  };
 
   const MenuName =
-    AuthenticationService.getUserName === "admin" ? AdminMenu : SideBarData;
-
+    AuthenticationService.getUserName() === "admin" ? AdminMenu : SideBarData;
   return (
     <>
       <MailContainer>
         <Box></Box>
-
         <List>
           {MenuName &&
             MenuName.map((data, index) => {
@@ -63,6 +68,17 @@ function SideBarContent() {
               );
             })}
         </List>
+        <tooltip title={"logout"}>
+          <ListItem
+            onClick={() => Logout()}
+            style={{ display: "flex", alignItems: "center", marginLeft: "4px" }}
+          >
+            <LogoutIcon style={{ marginRight: 5 }} />
+            <Link to="/login">
+              <Typography style={{ color: "red" }}>Logout</Typography>
+            </Link>
+          </ListItem>
+        </tooltip>
       </MailContainer>
     </>
   );

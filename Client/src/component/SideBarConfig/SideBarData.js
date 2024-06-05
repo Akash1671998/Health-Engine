@@ -26,10 +26,10 @@ let SideBarData = [
     name: "Apply Doctor",
     path: "/apply_doctor",
   },
-  {
-    icon: LogoutIcon,
-    name: "Logout",
-    path: "/logout",
-  },
+  // {
+  //   icon: LogoutIcon,
+  //   name: "Logout",
+  //   path: "/logout",
+  // },
 ];
 export default SideBarData;
