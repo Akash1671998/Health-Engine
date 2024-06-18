@@ -1,12 +1,15 @@
+import React from "react";
 import { Navigate } from "react-router-dom";
 import AuthenticationService from "../pages/AuthenticationServices";
 
-export default function ProtectedRoute({ children }) {
-  let AuthToken = AuthenticationService.getAuthenticationToken();
+const ProtectedRoute = ({ children }) => {
+  const authToken = AuthenticationService.getAuthenticationToken();
 
-  if (AuthToken) {
+  if (authToken) {
     return children;
   } else {
     return <Navigate to="/login" />;
   }
-}
+};
+
+export default ProtectedRoute;

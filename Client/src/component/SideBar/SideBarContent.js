@@ -49,7 +49,7 @@ function SideBarContent() {
             MenuName.map((data, index) => {
               const isActive = location.pathname === data.path;
               return (
-                <NavLink key={index} to={`${data.path}/${data.name}`}>
+                <NavLink key={index} to={`${data.path}`}>
                   <ListItem
                     key={index}
                     style={

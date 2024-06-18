@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import AuthenticationService from "./AuthenticationServices";
 import axios from "axios";
@@ -9,7 +9,7 @@ import { setUser } from "../redux/feature/userSlice";
 import { useNavigate } from "react-router-dom";
 
 let BASE_URL = "http://localhost:9191/api/v1/user/getUserData";
-export default function Home() {
+export default function Home({ Children }) {
   const [openSideNav, setOpenSideNav] = useState(true);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -50,17 +50,13 @@ export default function Home() {
           openSideNav={openSideNav}
         />
       </div>
-      <Box>
+      {/* <Box>
+        <SideBar openSideNav={openSideNav}/>
+      </Box> */}
+      <div style={{ marginTop: "90px", marginLeft: "230px" }}>
         <SideBar openSideNav={openSideNav} />
-      </Box>
-      {/* <div style={{ marginTop: "60px" }}> */}
-      {/* Adjust margin-top to accommodate header height */}
-      {/* <SideBar setOpenSideNav={setOpenSideNav} /> */}
-      {/* <Emails openSideNav={openSideNav}/> */}
-      {/* <Suspense fallback={<SuspenseLoader />}>
-        <Outlet />
-      </Suspense> */}
-      {/* </div> */}
+        {Children}
+      </div>
     </div>
   );
 }

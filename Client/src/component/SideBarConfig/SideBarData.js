@@ -24,12 +24,8 @@ let SideBarData = [
   {
     icon: LocalHospitalIcon,
     name: "Apply Doctor",
-    path: "/apply_doctor",
+    path:"/apply_doctor"
   },
-  // {
-  //   icon: LogoutIcon,
-  //   name: "Logout",
-  //   path: "/logout",
-  // },
+
 ];
 export default SideBarData;
