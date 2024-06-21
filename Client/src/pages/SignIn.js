@@ -58,6 +58,9 @@ export default function SignIn() {
       if (response.status == 200) {
         Navigate("/");
       }
+      if(response.status == 401){
+        Navigate("/login");
+      }
     } catch (error) {
       disptch(hideLoading());
       console.error(

@@ -4,7 +4,7 @@ import AuthenticationService from "../pages/AuthenticationServices";
 
 const ProtectedRoute = ({ children }) => {
   const authToken = AuthenticationService.getAuthenticationToken();
-
+  console.log("//////////////////",authToken)
   if (authToken) {
     return children;
   } else {

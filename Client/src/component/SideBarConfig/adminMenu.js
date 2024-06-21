@@ -13,7 +13,7 @@ let AdminMenu = [
   {
     icon: LocalHospitalIcon,
     name: "Doctor",
-    path: "/doctor",
+    path: "/apply_Doctors",
   },
 //   {
 //     icon: PeopleIcon,

@@ -1,12 +1,11 @@
-import ProtectedRoute from "../../component/ProtectedRoute";
-
+import Layout from "../../component/Layout";
 
 export default function ApplyDoctor() {
   return (
     <>
-    <ProtectedRoute>
+    <Layout>
     <h1>Doctor Detailds</h1>
-    </ProtectedRoute>
+    </Layout>
     
     </>
   );
