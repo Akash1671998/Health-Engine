@@ -84,8 +84,12 @@ const loginController = async (request, response) => {
 const authController = async (request, response) => {
   try {
     const { _id } = request.body; 
-    console.log("///////////////////", _id); 
-
+        if (!_id) {
+          return response.status(400).send({
+            status: "failed",
+            message: "_id parameter is missing",
+          });
+        }
     const user = await UserModel.findOne({ _id });
     if (!user) {
       return response.status(401).send({

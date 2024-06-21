@@ -25,7 +25,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-               <Route
+            <Route
               path="/apply_Doctors"
               element={
                 <ProtectedRoute>

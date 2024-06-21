@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const { ConnectDB } = require('./src/config/db');
 const dotenv = require("dotenv");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 
 // ENV File Configuration
 dotenv.config();
@@ -16,6 +17,7 @@ ConnectDB();
 
 // rest Object
 const app = express();
+app.use(bodyParser.json());
 
 // middlewares
 app.use(express.json());
