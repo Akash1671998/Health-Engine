@@ -75,9 +75,9 @@ export default function SignIn() {
       <Grid
         container
         component="main"
-        sx={{ height: "100vh", justifyContent: "center" }}
+        sx={{ height: "70vh", justifyContent: "center", alignItems: "center" }}
       >
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={5} md={4} component={Paper} elevation={2} square>
           <Box
             sx={{
               my: 8,
