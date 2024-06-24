@@ -7,6 +7,7 @@ import SideBar from "./SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/feature/userSlice";
 import { useNavigate } from "react-router-dom";
+const sidebarWidth = 230;
 
 let BASE_URL = "http://localhost:9191/api/v1/user/getUserData";
 export default function Layout({ children }) {
@@ -50,14 +51,15 @@ export default function Layout({ children }) {
           openSideNav={openSideNav}
         />
       </Box>
-      <Box style={{ marginTop: "90px", marginLeft: "230px" }}>
+      <Box style={{ marginTop: "90px", marginLeft: `${sidebarWidth}px` }}>
         <SideBar openSideNav={openSideNav} />
       </Box>
       <Box
         style={{
           marginTop: "90px",
-          marginLeft: openSideNav ? "210px" : "20px",
+          marginLeft: openSideNav ? `${sidebarWidth}px` : "20px", 
           borderRadius: 10,
+          width: openSideNav ? `calc(100% - ${sidebarWidth}px)` : "90%",
         }}
       >
         {children}

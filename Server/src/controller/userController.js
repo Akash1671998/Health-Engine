@@ -94,7 +94,7 @@ const authController = async (request, response) => {
     if (!user) {
       return response.status(401).send({
         status: "failed",
-        message: "user not found",
+        message: "user not found", 
       });
     } else {
       response.status(200).send({
